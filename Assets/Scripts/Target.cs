@@ -5,7 +5,7 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     private readonly float xSpawnBoundary = 4;
-    private readonly float ySpawnPosition = -2;
+    private readonly float ySpawnPosition = 0;
     private readonly float minSpeed = 10;
     private readonly float maxSpeed = 15;
     private readonly float maxTorque = 10;
@@ -63,15 +63,22 @@ public class Target : MonoBehaviour
     // Destroys the target whenever we click on it
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-        gameManager.UpdateScore(pointValue);
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
     }
 
     // Destroys the target whenever it reaches the Trigger game object (Sensor)
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        if(!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
     }
 }
 
