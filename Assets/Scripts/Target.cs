@@ -63,7 +63,7 @@ public class Target : MonoBehaviour
     // Destroys the target whenever we click on it
     private void OnMouseDown()
     {
-        if (gameManager.isGameActive)
+        if (gameManager.isGameActive  && !gameManager.isPaused)
         {
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);

@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI livesText;
     public Button restartButton;
     public GameObject titleScreen;
+    public GameObject pauseScreen;
     public bool isGameActive;
+    public bool isPaused = false;
     public int playerLives;
 
     // Start is called before the first frame update
@@ -29,9 +31,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckPause();
     }
 
+    private void CheckPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGameActive && !isPaused)
+        {
+            Time.timeScale = 0;
+            isPaused = true;
+            pauseScreen.gameObject.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && isGameActive && isPaused)
+        {
+            Time.timeScale = 1;
+            isPaused = false;
+            pauseScreen.gameObject.SetActive(false);
+        }
+    }
     // Spawns a random object every second
     private IEnumerator SpawnTarget()
     {
@@ -50,6 +67,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
+    // Decreases the player lives and shows it on the screen
     public void UpdateLives(int livesToDecrease)
     {
         playerLives -= livesToDecrease;
@@ -70,6 +88,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    // Removes the starting screen, sets the score and lives, and start spawning according to choosen difficulty
     public void StartGame(int difficulty)
     {
         isGameActive = true;
