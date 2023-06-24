@@ -74,11 +74,19 @@ public class Target : MonoBehaviour
     // Destroys the target whenever it reaches the Trigger game object (Sensor)
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
         if(!gameObject.CompareTag("Bad"))
         {
-            gameManager.GameOver();
+            if (gameManager.playerLives > 1)
+            {
+                gameManager.UpdateLives(1);
+            }
+            else if (gameManager.playerLives == 1)
+            {
+                gameManager.UpdateLives(1);
+                gameManager.GameOver();
+            }
         }
+        Destroy(gameObject);
     }
 }
 

@@ -10,12 +10,15 @@ public class GameManager : MonoBehaviour
     private float spawnRate = 1;
     private int score;
 
+
     public List<GameObject> target;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI livesText;
     public Button restartButton;
     public GameObject titleScreen;
     public bool isGameActive;
+    public int playerLives;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +50,12 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
+    public void UpdateLives(int livesToDecrease)
+    {
+        playerLives -= livesToDecrease;
+        livesText.text = "Lives: " + playerLives;
+    }
+
     // Sets the game as over and shows up "Game Over" text and Restart Button.
     public void GameOver()
     {
@@ -67,6 +76,7 @@ public class GameManager : MonoBehaviour
         spawnRate /= difficulty;
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
+        UpdateLives(-3);
         titleScreen.gameObject.SetActive(false);
     }
 }
