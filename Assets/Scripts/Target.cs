@@ -60,6 +60,7 @@ public class Target : MonoBehaviour
         return new Vector3(Random.Range(-xSpawnBoundary, xSpawnBoundary), ySpawnPosition);
     }
 
+    /*
     // Destroys the target whenever we click on it
     private void OnMouseDown()
     {
@@ -70,6 +71,7 @@ public class Target : MonoBehaviour
             gameManager.UpdateScore(pointValue);
         }
     }
+    */
 
     // Destroys the target whenever it reaches the Trigger game object (Sensor)
     private void OnTriggerEnter(Collider other)
@@ -87,6 +89,17 @@ public class Target : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    // Destroys the target
+    public void DestroyTarget()
+    {
+        if (gameManager.isGameActive && !gameManager.isPaused)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
     }
 }
 

@@ -1,8 +1,7 @@
-# Prototype5 - Clicky Balls
-Work in progress - Completed pre challanges
+# Prototype5 - Slash The Balls
+Completed Project
+
+Learning Unity - prototype 5. Interactive game of Slash The Balls.
 
 
-Learning Unity - prototype 5. Interactive game of Clicky Balls.
-
-
-No playable version atm
+Playable Version - https://play.unity.com/p/webgl-builds-355373
